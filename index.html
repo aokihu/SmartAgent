@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Smart Agent</title>
+    <link rel="stylesheet" href="node_modules/angular-material/angular-material.min.css">
+    <link rel="stylesheet" href="node_modules/angular-material/angular-material.layouts.min.css">
+		<link rel="stylesheet" href="index.css">
+    <!-- <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"> -->
+    <script src="node_modules/angular/angular.min.js"></script>
+    <script src="node_modules/angular-animate/angular-animate.min.js"></script>
+    <script src="node_modules/angular-aria/angular-aria.min.js"></script>
+    <script src="node_modules/angular-material/angular-material.min.js"></script>
+    <script src="node_modules/angular-ui-router/release/angular-ui-router.min.js"></script>
+    <script src="node_modules/angular-messages/angular-messages.min.js"></script>
+    <script src="app/services/discover.js"></script>
+    <script src="app/ctrls/device.js"></script>
+    <script src="app/ctrls/sidemenu.js"></script>
+    <script src="app/ctrls/main.js"></script>
+	</head>
+	<body ng-cloak layout="column" layout-fill ng-app="app">
+    <!-- Container #1 (see wireframe) -->
+    <md-toolbar md-medium-tall layout="row" >
+      <h3 style="padding-left:1em">Smart Agent</h3>
+      <span flex></span>
+    </md-toolbar>
+
+    <!-- Container #2 -->
+    <div flex layout="row">
+
+      <div layout="column">
+        <!-- Container #3 -->
+        <md-sidenav md-component-id="left" flex md-is-locked-open="true" layout="column" class="md-whiteframe-z2">
+          <md-list ng-controller="SASideMenu" flex>
+            <md-list-item ng-repeat="menu in menus">
+              <md-button ng-href="#/{{menu.state}}" flex>
+                <md-icon>{{menu.icon}}</md-icon>
+                {{menu.title}}
+              </md-button>
+            </md-list-item>
+          </md-list>
+
+        <!-- 设备连接 -->
+        <div style="border-top:1px solid rgba(0,0,0,0.15)" layout ng-controller="SADeviceManager">
+          <md-button ng-if="!connected" ng-click="openDeviceDiscover($event)">
+              <md-icon>cast</md-icon>
+              搜索设备
+          </md-button>
+
+          <md-button ng-if="connected" ng-click="openDeviceDiscover($event)">
+              <md-icon>cast_connected</md-icon>
+              连接设备:{{device.model}}
+          </md-button>
+        </div>
+        <!-- @end 设备连接 -->
+        </md-sidenav>
+      </div>
+
+
+        <!-- Container #4 -->
+        <md-content flex id="content" ui-view>
+
+        </md-content>
+
+    </div>
+	</body>
+
+</html>
