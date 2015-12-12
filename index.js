@@ -20,7 +20,9 @@ function onClosed() {
 function createMainWindow() {
 	const win = new electron.BrowserWindow({
 		width: 900,
-		height: 600
+		height: 600,
+    // frame:false,
+    'title-bar-style': 'hidden'
 	});
 
 	win.loadURL(`file://${__dirname}/index.html`);

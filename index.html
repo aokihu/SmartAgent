@@ -16,13 +16,15 @@
     <script src="app/services/discover.js"></script>
     <script src="app/ctrls/device.js"></script>
     <script src="app/ctrls/sidemenu.js"></script>
+    <script src="app/ctrls/music.js"></script>
     <script src="app/ctrls/main.js"></script>
 	</head>
 	<body ng-cloak layout="column" layout-fill ng-app="app">
     <!-- Container #1 (see wireframe) -->
-    <md-toolbar md-medium-tall layout="row" >
+    <md-toolbar md-medium-tall layout="row" id="window-bar">
       <h3 style="padding-left:1em">Smart Agent</h3>
       <span flex></span>
+      <div ui-view="topmenu"></div>
     </md-toolbar>
 
     <!-- Container #2 -->
@@ -42,14 +44,14 @@
 
         <!-- 设备连接 -->
         <div style="border-top:1px solid rgba(0,0,0,0.15)" layout ng-controller="SADeviceManager">
-          <md-button ng-if="!connected" ng-click="openDeviceDiscover($event)">
+          <md-button flex ng-if="!connected" ng-click="openDeviceDiscover($event)">
               <md-icon>cast</md-icon>
               搜索设备
           </md-button>
 
-          <md-button ng-if="connected" ng-click="openDeviceDiscover($event)">
+          <md-button flex ng-if="connected" ng-click="openDeviceDiscover($event)">
               <md-icon>cast_connected</md-icon>
-              连接设备:{{device.model}}
+              连接:{{device.model}}
           </md-button>
         </div>
         <!-- @end 设备连接 -->

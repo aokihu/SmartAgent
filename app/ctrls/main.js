@@ -2,13 +2,21 @@ var app = angular.module('app', ['ngMaterial','ui.router'])
 .config(($mdThemingProvider, $stateProvider, $urlRouterProvider)=>{
   $mdThemingProvider.theme('default')
   .primaryPalette('blue')
-  .accentPalette('orange');
+  .accentPalette('indigo');
 
-  $urlRouterProvider.otherwise("/music");
+  $urlRouterProvider.otherwise("#/music");
 
   $stateProvider.state('music',{
     url:"/music",
-    templateUrl:'app/views/music.html'
+    views:{
+      "":{
+        templateUrl:'app/views/music.html',
+        controller:'SAMusicManagerCtrl'
+      },
+      "topmenu":{
+        templateUrl:'app/views/music.topmenu.html'
+      }
+    }
   })
   .state('system',{
     url:"/system",
@@ -22,6 +30,7 @@ var app = angular.module('app', ['ngMaterial','ui.router'])
 .service('SADiscover', ['$rootScope','$interval', DiscoverService])
 .controller('SASideMenu', ['$scope', SideMenuCtrl])
 .controller('SADeviceManager',['$scope','$mdDialog','$mdMedia','SADiscover', DeviceManager])
+.controller('SAMusicManagerCtrl', MusicManager)
 
 
 angular.bootstrap(app);
