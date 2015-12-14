@@ -4,6 +4,11 @@ var app = angular.module('app', ['ngMaterial','ui.router'])
   .primaryPalette('blue')
   .accentPalette('indigo');
 
+  $mdThemingProvider.theme('toast')
+  .primaryPalette('blue')
+  .backgroundPalette('yellow')
+  .accentPalette('indigo');
+
   $urlRouterProvider.otherwise("#/music");
 
   $stateProvider.state('music',{
@@ -14,23 +19,64 @@ var app = angular.module('app', ['ngMaterial','ui.router'])
         controller:'SAMusicManagerCtrl'
       },
       "topmenu":{
-        templateUrl:'app/views/music.topmenu.html'
+        templateUrl:'app/views/music.topmenu.html',
+        controller:"SAMusicPlayerCtrl"
       }
     }
   })
   .state('system',{
     url:"/system",
-    template:"system"
+    views:{
+      "":{
+        templateUrl:'app/views/system.html',
+        controller:'SASystemCtrl'
+      },
+      "topmenu":{
+        templateUrl:'app/views/system.topmenu.html'
+      }
+    }
   })
   .state('timer',{
     url:'/timer',
-    template:'timer'
+    views:{
+      "":{
+        template:"timer",
+        controller:'SAMusicManagerCtrl'
+      },
+      "topmenu":{
+        templateUrl:"app/views/timer.topmenu.html"
+      }
+    }
   })
 })
-.service('SADiscover', ['$rootScope','$interval', DiscoverService])
-.controller('SASideMenu', ['$scope', SideMenuCtrl])
-.controller('SADeviceManager',['$scope','$mdDialog','$mdMedia','SADiscover', DeviceManager])
+.service('SADiscover', DiscoverService)
+.service('SAMQTT',SAMQTTService)
+.controller('SASideMenu', SideMenuCtrl)
+.controller('SADeviceManager',DeviceManager)
 .controller('SAMusicManagerCtrl', MusicManager)
+.controller('SAMusicPlayerCtrl', MusicPlayerCtrl)
+.controller('SASystemCtrl', SASystemCtrl)
+.controller('mainCtrl', ($scope, $mdDialog)=>{
 
+  // 主控制器
+  //
+
+
+  // 处理系统错误
+  $scope.$on('error', (ev, data)=>{
+    alert = $mdDialog.alert({
+          title: '错误',
+          textContent: data.error,
+          ok: '确认',
+          parent:angular.element(document.body)
+        });
+    $mdDialog
+      .show( alert )
+      .finally(function() {
+        alert = undefined;
+      });
+  });
+
+})
 
 angular.bootstrap(app);

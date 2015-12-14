@@ -1,11 +1,12 @@
 'use strict';
 
-function DeviceManager($scope, $mdDialog, $mdMedia){
+function DeviceManager($scope, $mdDialog, $mdMedia, SAMQTT){
 
   // 设备是否处于连接状态
   $scope.connected = false;
   $scope.connectDevice = null;
 
+  // 打开搜索设备对话框
   $scope.openDeviceDiscover = (ev) =>{
 
     $mdDialog.show({
@@ -17,12 +18,25 @@ function DeviceManager($scope, $mdDialog, $mdMedia){
       fullscreen: true
     })
     .then(function(device) {
-      $scope.connected = true;
+      // $scope.connected = true;
       $scope.device = device;
+      SAMQTT.setServer(device.ip).connect();
     })
-
   }
 
+
+  // 监听设备离线消息
+  $scope.$on('deviceOffine', (ev, data)=>{
+    $scope.connected = false;
+    // $scope.connectDevice = null;
+    $scope.$apply();
+  });
+
+  $scope.$on('deviceOnline', (ev, data)=>{
+    $scope.connected = true;
+    // $scope.connectDevice = null;
+    $scope.$apply();
+  });
 }
 
 function DeviceDialogCtrl($scope, $mdDialog, $timeout, $mdToast, SADiscover){

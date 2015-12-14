@@ -3,7 +3,7 @@ var udpSock = require('dgram'),
 	os = require('os');
 
 
-function DiscoverService($rootScope,$interval){
+function DiscoverService($rootScope,$interval,SAMQTT){
 
   // 启动Discover服务
   var server = udpSock.createSocket("udp4");
@@ -54,6 +54,7 @@ function DiscoverService($rootScope,$interval){
       server.send(retMsg,0,retMsg.length,9900,'234.0.0.1');
     },3000);
 
+    return this;
   }
 
   /**
@@ -62,8 +63,7 @@ function DiscoverService($rootScope,$interval){
   this.stop = ()=>{
     $interval.cancel(timer);
     FoundDevices.clear();
+    return this;
   }
-
-
 
 };

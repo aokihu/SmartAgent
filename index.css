@@ -75,3 +75,21 @@ md-sidenav.md-closed.md-locked-open-add-active {
   /*overflow: hidden;*/
   padding:12px;
 }
+
+md-toast{/*这个目前暂时解决背景问题*/
+  background-color: rgb(50,50,50)
+}
+
+/**
+ * 自定义列表样式
+ */
+.small-list{
+  font-size:14px;
+  list-style: none;
+  margin:0;
+  padding-left: 2em;
+}
+
+.small-list li{
+  line-height: 2em;
+}

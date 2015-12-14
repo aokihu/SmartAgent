@@ -1,6 +1,6 @@
 'use strict';
 
-function SideMenuCtrl($scope,$mdSidenav){
+function SideMenuCtrl($scope,$state,$mdToast, $document){
 
 
   $scope.menus = [
@@ -9,6 +9,10 @@ function SideMenuCtrl($scope,$mdSidenav){
     {title:"系统管理",icon:'settings', state:'system'}
   ];
 
+  $scope.isCurrent = (index) => {
+    let menu = $scope.menus[index];
+    return $state.includes(menu.state);
+  }
 
 
 }
