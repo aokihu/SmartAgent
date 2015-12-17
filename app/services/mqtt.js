@@ -4,6 +4,7 @@
  */
 
 const mqtt = require('mqtt');
+const mqtt_regex = require('mqtt-regex')
 
 const actions = {
   "music play":"/local/music/set/play/single",
@@ -15,7 +16,7 @@ const messages = [
   // 代理事件
   '/agent',
   // 音乐播放器事件
-  '/local/music/message/status',
+  '/local/music/get/status',
   // 音乐列表
   'fetched/local/storage/music',
   // 播放列表
