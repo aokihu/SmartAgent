@@ -10,8 +10,6 @@ function MusicManager($scope, SAMQTT){
 }
 
 
-
-
 // @controller
 // 音乐播放器控制器
 function MusicPlayerCtrl($scope, SAMQTT){

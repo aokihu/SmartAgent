@@ -6,9 +6,9 @@
 const mqtt = require('mqtt');
 
 const actions = {
-  "music play":"/local/music/play/single",
-  "music play playlist":"/local/music/play/playlist",
-  "music stop":"/local/music/stop"
+  "music play":"/local/music/set/play/single",
+  "music play playlist":"/local/music/set/play/playlist",
+  "music stop":"/local/music/set/stop"
 }
 
 const messages = [
@@ -16,6 +16,10 @@ const messages = [
   '/agent',
   // 音乐播放器事件
   '/local/music/message/status',
+  // 音乐列表
+  'fetched/local/storage/music',
+  // 播放列表
+  'fetched/local/storage/playlist'
 ]
 
 function SAMQTTService($rootScope){
@@ -39,6 +43,11 @@ function SAMQTTService($rootScope){
         client.subscribe(msg);
       });
 
+      //
+      // 广播事件
+      //
+      client.publish('/local/music/get/library')
+
       /**
        * 处理接受数据
        * @param  {[type]} 'message' [description]
@@ -53,9 +62,19 @@ function SAMQTTService($rootScope){
         if(_topic == messages[1])
         {
           $rootScope.$broadcast('updateMusicStatus', _data);
+          return 0;
         }
 
-      })
+        // 音乐列表数据获取
+        if(_topic == messages[2]){
+          $rootScope.$broadcast('fetchedMusicLibrary', _data);
+        }
+
+        if(_topic == messages[3]){
+          $rootScope.$broadcast('fetchedPlaylist', _data);
+        }
+
+      });
 
       // 设备连接事件
       client.on('connect', () => {
