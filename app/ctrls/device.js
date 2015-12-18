@@ -18,7 +18,6 @@ function DeviceManager($scope, $mdDialog, $mdMedia, SAMQTT){
       fullscreen: true
     })
     .then(function(device) {
-      // $scope.connected = true;
       $scope.device = device;
       SAMQTT.setServer(device.ip).connect();
     })
@@ -28,7 +27,6 @@ function DeviceManager($scope, $mdDialog, $mdMedia, SAMQTT){
   // 监听设备离线消息
   $scope.$on('deviceOffine', (ev, data)=>{
     $scope.connected = false;
-    // $scope.connectDevice = null;
     $scope.$apply();
   });
 

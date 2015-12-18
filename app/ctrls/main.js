@@ -58,17 +58,16 @@ var app = angular.module('app', ['ngMaterial','ui.router'])
 .controller('SASystemCtrl', SASystemCtrl)
 .controller('mainCtrl', ($scope, $mdDialog)=>{
 
+  //
   // 主控制器
   //
-
 
   // 处理系统错误
   $scope.$on('error', (ev, data)=>{
     alert = $mdDialog.alert({
           title: '错误',
           textContent: data.error,
-          ok: '确认',
-          parent:angular.element(document.body)
+          ok: '确认'
         });
     $mdDialog
       .show( alert )

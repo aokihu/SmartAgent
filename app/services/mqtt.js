@@ -4,7 +4,7 @@
  */
 
 const mqtt = require('mqtt');
-const mqtt_regex = require('mqtt-regex')
+const mqtt_regex = require('mqtt-regex');
 
 const actions = {
   "music play":"/local/music/set/play/single",
