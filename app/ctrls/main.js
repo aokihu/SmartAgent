@@ -20,7 +20,7 @@ var app = angular.module('app', ['ngMaterial','ui.router'])
       },
       "topmenu":{
         templateUrl:'app/views/music.topmenu.html',
-        controller:"SAMusicPlayerCtrl"
+        controller:'SAMusicPlayerCtrl'
       }
     }
   })
@@ -41,7 +41,7 @@ var app = angular.module('app', ['ngMaterial','ui.router'])
     views:{
       "":{
         template:"timer",
-        controller:'SAMusicManagerCtrl'
+        controller:'mainCtrl'
       },
       "topmenu":{
         templateUrl:"app/views/timer.topmenu.html"
@@ -51,12 +51,13 @@ var app = angular.module('app', ['ngMaterial','ui.router'])
 })
 .service('SADiscover', DiscoverService)
 .service('SAMQTT',SAMQTTService)
+.service('SAMusic',SAMusicService)
 .controller('SASideMenu', SideMenuCtrl)
 .controller('SADeviceManager',DeviceManager)
 .controller('SAMusicManagerCtrl', MusicManager)
-.controller('SAMusicPlayerCtrl', MusicPlayerCtrl)
+.controller('SAMusicPlayerCtrl', MusicPlayer)
 .controller('SASystemCtrl', SASystemCtrl)
-.controller('mainCtrl', ($scope, $mdDialog)=>{
+.controller('mainCtrl', ($scope, $mdDialog ,$mdToast)=>{
 
   //
   // 主控制器
@@ -64,17 +65,15 @@ var app = angular.module('app', ['ngMaterial','ui.router'])
 
   // 处理系统错误
   $scope.$on('error', (ev, data)=>{
-    alert = $mdDialog.alert({
-          title: '错误',
-          textContent: data.error,
-          ok: '确认'
-        });
-    $mdDialog
-      .show( alert )
-      .finally(function() {
-        alert = undefined;
-      });
+    var toast = $mdToast.simple()
+          .textContent(data.error)
+          .action('确定')
+          .highlightAction(false)
+          .position('bottom right');
+    $mdToast.show(toast);
   });
+
+
 
 })
 

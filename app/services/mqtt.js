@@ -13,14 +13,8 @@ const actions = {
 }
 
 const messages = [
-  // 代理事件
-  '/agent',
-  // 音乐播放器事件
-  '/local/music/get/status',
-  // 音乐列表
-  'fetched/local/storage/music',
-  // 播放列表
-  'fetched/local/storage/playlist'
+  '/local/db/pub/list/music',
+  '/local/music/pub/status'
 ]
 
 function SAMQTTService($rootScope){
@@ -36,18 +30,15 @@ function SAMQTTService($rootScope){
   function connect(){
     if(server && port){
       client = mqtt.connect(`mqtt://${server}:${port}`,{
-        clientId:`sm_${Math.random().toString(16).substr(2,8)}`
+        clientId:`sm_${Math.random().toString(16).substr(2,8)}`,
+        keepalive:0
       });
 
       // 注册感兴趣的事件
       messages.forEach((msg)=>{
+        console.log('register event:', msg);
         client.subscribe(msg);
       });
-
-      //
-      // 广播事件
-      //
-      client.publish('/local/music/get/library')
 
       /**
        * 处理接受数据
@@ -59,27 +50,16 @@ function SAMQTTService($rootScope){
         let _topic = topic.toString();
         let _data   = JSON.parse(msg.toString());
 
-        // 音乐播放器状态
-        if(_topic == messages[1])
-        {
-          $rootScope.$broadcast('updateMusicStatus', _data);
-          return 0;
-        }
-
-        // 音乐列表数据获取
-        if(_topic == messages[2]){
-          $rootScope.$broadcast('fetchedMusicLibrary', _data);
-        }
-
-        if(_topic == messages[3]){
-          $rootScope.$broadcast('fetchedPlaylist', _data);
-        }
+        $rootScope.$broadcast(_topic, _data);
 
       });
 
       // 设备连接事件
       client.on('connect', () => {
         // 获取播放器状态
+        client.publish('/local/music/get/status');
+        // 获得音乐列表
+        client.publish('/local/db/list/music');
         $rootScope.$broadcast('deviceOnline');
       })
 
@@ -137,11 +117,11 @@ function SAMQTTService($rootScope){
     // 没有连接设备的时候发出警告
     if(client == null || client.on == null){
         $rootScope.$broadcast('error',{error:'设备没有连接!'});
-        throw("device not connected");
+        // throw("device not connected");
         return this;
     }
 
-    client.publish(actions[action], JSON.stringify(data));
+    client.publish(action, JSON.stringify(data));
     return this;
   }
 

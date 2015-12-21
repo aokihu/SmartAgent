@@ -1,38 +1,56 @@
 'use strict';
 
-function MusicManager($scope, SAMQTT){
-
-
-  $scope.library = [
-    {title:"hello"}
-  ];
-
-}
-
-
 // @controller
-// 音乐播放器控制器
-function MusicPlayerCtrl($scope, SAMQTT){
+function MusicManager($scope, SAMusic){
 
   // 播放器状态
   $scope.playing = false;
+  $scope.selectIndex = 0;
+  $scope.library = []; // 音乐列表
 
-  $scope.$on('updateMusicStatus', (evt, data)=>{
-    console.log('Update Music Status', data);
+  // 请求获取音乐列表
+  let evtGetMusicLibrary = SAMusic.getMusicLibrary()
+
+  // 处理获取音乐列表事件
+  $scope.$on(evtGetMusicLibrary, (evt, data) => {
+    console.log(data);
     $scope.$apply(()=>{
-      $scope.playing = data.playing;
-    })
+      $scope.library = data.map((item) => {
+        item.title = item.filename;
+        return item;
+      });
+    });
+
   });
 
   /**
    * 播放单曲
    * @return {[type]} [description]
    */
-  $scope.play = () => {
-    SAMQTT.send('music play',{file:"/Users/aokihu/Projects/SmartCore/test2.mp3"});
+  $scope.play = (index) => {
+    console.log(index);
+    SAMusic.play($scope.library[index]);
   }
 
+}
+
+//
+// 音乐播放控制器
+//
+function MusicPlayer($scope, SAMusic){
+
+  $scope.status = 'idle'; // 播放器状态
+
   $scope.stop = () => {
-    SAMQTT.send('music stop');
+    SAMusic.stop();
   }
+
+  let evtGetPlayerStatus = SAMusic.getPlayerStatus();
+
+  $scope.$on(evtGetPlayerStatus, (evt, data) => {
+    console.log(data);
+    $scope.status = data.status;
+    $scope.$apply();
+  });
+
 }

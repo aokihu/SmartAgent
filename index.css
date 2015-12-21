@@ -62,6 +62,11 @@ html, body {
   overflow: hidden;
 }
 
+
+.uninteractive{
+  color: #ccc
+}
+
 /*修改Sidenav 宽度*/
 md-sidenav,
 md-sidenav.md-locked-open,

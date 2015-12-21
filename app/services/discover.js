@@ -10,7 +10,7 @@ function DiscoverService($rootScope,$interval,SAMQTT){
   server.bind(9901, function(){
   	server.setBroadcast(true);
   	server.setMulticastTTL(128);
-  	server.addMembership("234.0.0.1");
+  	server.addMembership("234.0.0.1","192.168.1.102");
   });
 
   let FoundDevices = new Set();
@@ -52,7 +52,7 @@ function DiscoverService($rootScope,$interval,SAMQTT){
 
     timer = $interval(()=>{
       server.send(retMsg,0,retMsg.length,9900,'234.0.0.1');
-    },3000);
+    },1000);
 
     return this;
   }
