@@ -40,7 +40,7 @@ var app = angular.module('app', ['ngMaterial','ui.router'])
     url:'/timer',
     views:{
       "":{
-        template:"timer",
+        templateUrl:"app/views/timer.html",
         controller:'mainCtrl'
       },
       "topmenu":{

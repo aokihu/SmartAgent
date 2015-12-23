@@ -16,7 +16,11 @@ function MusicManager($scope, SAMusic){
     console.log(data);
     $scope.$apply(()=>{
       $scope.library = data.map((item) => {
-        item.title = item.filename;
+        let dotIndex = item.filename.indexOf(".");
+        item.title = item.filename.substr(0,dotIndex);
+        if(item.title.length > 10){
+          item.title = item.title.substr(0, 9) + '...';
+        }
         return item;
       });
     });

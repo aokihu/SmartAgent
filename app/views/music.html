@@ -1,18 +1,17 @@
 <md-grid-list
-    md-cols-sm="2" md-cols-md="5" md-cols-gt-md="6"
+    md-cols-sm="3" md-cols-md="4" md-cols-gt-md="6"
     md-row-height-gt-md="1:1" md-row-height="4:3"
     md-gutter="18px" md-gutter-gt-sm="12px">
   <md-grid-tile ng-repeat="item in library"
                 md-colspan-sm="1"
                 ng-class="tile.background"
-                ng-cloak
-                ng-click="play($index)">
+                ng-cloak>
     <md-icon style="font-size:320%">queue_music</md-icon>
+    <md-button class="md-primary md-fab md-mini float-right" ng-click="play($index)">
+      <md-icon>play_arrow</md-icon>
+    </md-button>
     <md-grid-tile-footer class="md-mini">
-      <md-checkbox>
-        <h3>{{item.title}}</h3>
-      </md-checkbox>
-
+      <h3>{{item.title}}</h3>
     </md-grid-tile-footer>
   </md-grid-tile>
 </md-grid-list>

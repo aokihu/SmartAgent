@@ -1,7 +1,8 @@
 'use strict';
-var udpSock = require('dgram'),
-	os = require('os');
 
+const udpSock = require('dgram');
+const os = require('os');
+const _ = require('lodash');
 
 function DiscoverService($rootScope,$interval,SAMQTT){
 
@@ -10,7 +11,23 @@ function DiscoverService($rootScope,$interval,SAMQTT){
   server.bind(9901, function(){
   	server.setBroadcast(true);
   	server.setMulticastTTL(128);
-  	server.addMembership("234.0.0.1","192.168.1.102");
+  	// server.addMembership("234.0.0.1");
+
+    //
+    // 搜索网络接口,找到适合的网络
+    // 比如en0,eth0
+    //
+    let ifaces = os.networkInterfaces();
+    for(let card in ifaces){
+      let iface = ifaces[card];
+      iface.forEach((node)=>{
+        if(node.family === 'IPv4'){
+          server.addMembership('234.0.0.1',node.address);
+          console.log(`join 234.0.0.1@${node.address}`)
+        }
+      });
+    }
+
   });
 
   let FoundDevices = new Set();

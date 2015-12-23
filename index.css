@@ -12,8 +12,8 @@
   font-weight: 400;
   src: local('Material Icons'),
        local('MaterialIcons-Regular'),
-       url(node_modules/material-design-icons/iconfont/MaterialIcons-Regular.woff2) format('woff2'),
-       url(node_modules/material-design-icons/iconfont/MaterialIcons-Reqular.ttf) format('truetype');
+       url(bower_components/material-design-icons/material-design-icons-2.1.1/iconfont/MaterialIcons-Regular.woff2) format('woff2'),
+       url(bower_components/material-design-icons/material-design-icons-2.1.1/iconfont/MaterialIcons-Reqular.ttf) format('truetype');
 }
 
 .material-icons {
@@ -81,8 +81,31 @@ md-sidenav.md-closed.md-locked-open-add-active {
   padding:12px;
 }
 
-md-toast{/*这个目前暂时解决背景问题*/
-  background-color: rgb(50,50,50)
+/*修改grid的样式*/
+
+md-grid-list md-grid-tile{
+  background-color: #eee !important;
+  border-radius: 5px !important;
+  height: 80px !important;
+}
+
+md-grid-list md-grid-tile .float-right{
+  position: absolute;
+  top:0;
+  right:0;
+  opacity: 0;
+  transition: opacity 0.5s;
+}
+
+md-grid-list md-grid-tile:hover .float-right{
+  opacity: 1;
+}
+
+md-grid-list md-grid-tile md-grid-tile-footer{
+  height: 30px !important;
+  text-align: center !important;
+  border-radius: 0 0 5px 5px !important;
+  background-color: #666 !important;
 }
 
 /**
