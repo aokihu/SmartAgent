@@ -14,7 +14,8 @@ const actions = {
 
 const messages = [
   '/local/db/pub/list/music',
-  '/local/music/pub/status'
+  '/local/music/pub/status',
+  '/local/timer/pub/schedule'
 ]
 
 function SAMQTTService($rootScope){

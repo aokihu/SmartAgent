@@ -24,8 +24,7 @@
         <div ng-show="devices">
           <md-list>
             <md-list-item ng-repeat="device in devices" ng-click="choose($index)">
-              <md-icon>computer</md-icon>
-              <h3>{{device.model}}</h3>
+              <h3><md-icon>computer</md-icon> {{device.model}}</h3>
             </md-list-item>
           </md-list>
         </div>

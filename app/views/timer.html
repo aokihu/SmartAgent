@@ -1,0 +1,17 @@
+<md-list>
+  <md-list-item class="md-3-line" ng-repeat="item in schedule">
+    <md-icon style="font-size:36px">event</md-icon>
+
+    <div class="md-list-item-text">
+      <h3 style="display:block">定时时间:{{item.alarm}}</h3>
+      <md-chips ng-model="item.dw" readonly="true" class="schedule-list">
+        <md-chip-template>
+          <span>星期{{$chip}}</span>
+        </md-chip-template>
+      </md-chips>
+    </div>
+
+    <md-icon>event</md-icon>
+
+  </md-list-item>
+</md-list>

@@ -41,7 +41,7 @@ var app = angular.module('app', ['ngMaterial','ui.router'])
     views:{
       "":{
         templateUrl:"app/views/timer.html",
-        controller:'mainCtrl'
+        controller:'SAScheduleCtrl'
       },
       "topmenu":{
         templateUrl:"app/views/timer.topmenu.html"
@@ -52,25 +52,37 @@ var app = angular.module('app', ['ngMaterial','ui.router'])
 .service('SADiscover', DiscoverService)
 .service('SAMQTT',SAMQTTService)
 .service('SAMusic',SAMusicService)
+.service('SASchedule',SAScheduleService)
 .controller('SASideMenu', SideMenuCtrl)
 .controller('SADeviceManager',DeviceManager)
 .controller('SAMusicManagerCtrl', MusicManager)
 .controller('SAMusicPlayerCtrl', MusicPlayer)
 .controller('SASystemCtrl', SASystemCtrl)
+.controller('SAScheduleCtrl',SAScheduleCtrl)
 .controller('mainCtrl', ($scope, $mdDialog ,$mdToast)=>{
 
+  var errToast = null;
   //
   // 主控制器
   //
 
   // 处理系统错误
   $scope.$on('error', (ev, data)=>{
-    var toast = $mdToast.simple()
-          .textContent(data.error)
-          .action('确定')
-          .highlightAction(false)
-          .position('bottom right');
-    $mdToast.show(toast);
+
+    if(errToast == null){
+      errToast = $mdToast.simple()
+            .textContent(data.error)
+            .action('确定')
+            .highlightAction(true)
+            .position('bottom right');
+      $mdToast.show(errToast)
+      .then(()=>{
+          errToast = null;
+      }, () => {
+          errToast = null;
+      });
+    }
+
   });
 
 

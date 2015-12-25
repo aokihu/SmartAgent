@@ -2,7 +2,6 @@
 
 const udpSock = require('dgram');
 const os = require('os');
-const _ = require('lodash');
 
 function DiscoverService($rootScope,$interval,SAMQTT){
 

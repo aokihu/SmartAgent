@@ -78,7 +78,7 @@ md-sidenav.md-closed.md-locked-open-add-active {
 
 #content{
   /*overflow: hidden;*/
-  padding:12px;
+  /*padding:12px;*/
 }
 
 /*修改grid的样式*/
@@ -120,4 +120,19 @@ md-grid-list md-grid-tile md-grid-tile-footer{
 
 .small-list li{
   line-height: 2em;
+
+}
+
+.small-list li span{
+  margin-left: 1em;
+  -webkit-user-select:initial;
+}
+
+/*
+ * 自定义时间表列表
+ */
+.schedule-list md-chip{
+  line-height: 24px !important;
+  height: 24px !important;
+  font-size: 12px !important;
 }
