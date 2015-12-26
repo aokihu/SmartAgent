@@ -62,7 +62,7 @@ html, body {
   overflow: hidden;
 }
 
-
+/*非交互状态颜色*/
 .uninteractive{
   color: #ccc
 }
@@ -136,3 +136,11 @@ md-grid-list md-grid-tile md-grid-tile-footer{
   height: 24px !important;
   font-size: 12px !important;
 }
+
+.schedule-list .md-chips{
+  box-shadow: none !important;
+}
+
+fieldset.standard {
+  border-style: solid;
+  border-width: 1px; }

@@ -40,9 +40,9 @@
       <div layout="column">
         <!-- Container #3 -->
         <md-sidenav md-component-id="left" flex md-is-locked-open="true" layout="column" class="md-whiteframe-z2">
-          <md-list ng-controller="SASideMenu" flex>
+          <md-list ng-controller="SASideMenu" flex ng-cloak>
             <md-list-item ng-repeat="menu in menus">
-              <md-button ng-href="#/{{menu.state}}" ng-class="{'md-primary md-raised':isCurrent($index)}" flex>
+              <md-button ng-href="#/{{menu.state}}" ng-class="{'md-primary md-raised':isCurrent($index)}" md-no-ink flex>
                 <md-icon>{{menu.icon}}</md-icon>
                 {{menu.title}}
               </md-button>

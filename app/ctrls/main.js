@@ -4,9 +4,9 @@ var app = angular.module('app', ['ngMaterial','ui.router'])
   .primaryPalette('blue')
   .accentPalette('indigo');
 
-  $mdThemingProvider.theme('toast')
-  .primaryPalette('blue')
-  .backgroundPalette('yellow')
+  $mdThemingProvider.theme('dialogTheme')
+  .primaryPalette('green')
+  .warnPalette('red')
   .accentPalette('indigo');
 
   $urlRouterProvider.otherwise("#/music");

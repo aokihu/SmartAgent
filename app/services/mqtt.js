@@ -12,6 +12,12 @@ const actions = {
   "music stop":"/local/music/set/stop"
 }
 
+const readyActions = [
+  '/local/music/get/status',
+  '/local/db/list/music',
+  '/local/timer/get/schedule'
+]
+
 const messages = [
   '/local/db/pub/list/music',
   '/local/music/pub/status',
@@ -57,11 +63,11 @@ function SAMQTTService($rootScope){
 
       // 设备连接事件
       client.on('connect', () => {
-        // 获取播放器状态
-        client.publish('/local/music/get/status');
-        // 获得音乐列表
-        client.publish('/local/db/list/music');
         $rootScope.$broadcast('deviceOnline');
+
+        readyActions.forEach( (action) => {
+          client.publish(action)
+        })
       })
 
       // 设备丢失事件

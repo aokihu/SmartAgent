@@ -11,8 +11,25 @@ function SAMusicService($rootScope,$q,SAMQTT){
    */
   this.getMusicLibrary = () =>{
     SAMQTT.send('/local/db/list/music');
-    return '/local/db/pub/list/music';
+    return 'pub/local/db/list/music';
   }
+
+  /**
+   * 处理获取的音乐列表数据
+   */
+  $rootScope.$on('/local/db/pub/list/music', (evt, data)=>{
+
+    this.library = data.map((item) => {
+      let dotIndex = item.filename.indexOf(".");
+      item.title = item.filename.substr(0,dotIndex);
+      if(item.title.length > 10){
+        item.title = item.title.substr(0, 9) + '...';
+      }
+      return item;
+    });
+
+    $rootScope.$broadcast('pub/local/db/list/music', this.library);
+  });
 
   /**
    * 获取播放器状态

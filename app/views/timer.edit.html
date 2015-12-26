@@ -1,0 +1,77 @@
+<md-dialog>
+  <form ng-cloak>
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>编辑定时任务</h2>
+        <span flex></span>
+        <md-button class="md-icon-button" ng-click="cancel()">
+          <md-icon aria-label="Close dialog">close</md-icon>
+        </md-button>
+      </div>
+    </md-toolbar>
+    <md-dialog-content  ng-cloak layout-padding style="width:550px;height:710px;max-width:800px;max-height:810px;">
+      <h1 class="md-title">运行时刻</h1>
+      <!-- 小时 -->
+      <md-input-container>
+       <label>小时</label>
+       <md-select ng-model="localSchd.h">
+         <md-option ng-repeat="h in hours" value="{{h}}">
+           {{h}}
+         </md-option>
+       </md-select>
+     </md-input-container>
+      <!-- 分钟 -->
+      <md-input-container>
+       <label>分钟</label>
+       <md-select ng-model="localSchd.m">
+         <md-option ng-repeat="m in minutes" value="{{m}}">
+           {{m}}
+         </md-option>
+       </md-select>
+     </md-input-container>
+
+     <!-- 秒 -->
+     <md-input-container>
+      <label>秒</label>
+      <md-select ng-model="localSchd.s">
+        <md-option ng-repeat="s in minutes" value="{{s}}">
+          {{s}}
+        </md-option>
+      </md-select>
+    </md-input-container>
+
+    <!-- 运行工作日 -->
+    <h1 class="md-title">运行工作日</h1>
+    <div layout="row" layout-wrap flex>
+       <div flex="25" ng-repeat="d in dw">
+         <md-checkbox ng-checked="exists(d)" ng-click="toggle(d)" class="md-primary">
+           星期{{ d }}
+         </md-checkbox>
+       </div>
+     </div>
+
+     <!-- 执行动作 -->
+     <md-input-container>
+      <label>执行动作</label>
+      <md-select ng-model="localSchd.h">
+        <md-option ng-repeat="h in hours" value="{{h}}">
+          {{h}}
+        </md-option>
+      </md-select>
+    </md-input-container>
+
+    </md-dialog-content>
+
+
+    <md-dialog-actions layout="row" md-theme="dialogTheme">
+      <md-button class="md-warn md-raised">
+        <md-icon>delete</md-icon>
+        删除
+      </md-button>
+      <span flex></span>
+      <md-button class="md-primary md-accent" ng-click="cancel()">取消</md-button>
+      <md-button class="md-primary md-raised md-hue-2"><md-icon>done</md-icon>确认</md-button>
+    </md-dialog-actions>
+
+  </form>
+</md-dialog>
