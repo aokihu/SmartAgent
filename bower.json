@@ -1,7 +1,7 @@
 {
   "name": "SmartAgent",
   "main": "index.js",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "homepage": "https://github.com/aokihu/SmartAgent",
   "authors": [
     "aokihu <aokihu@gmail.com>"
@@ -16,6 +16,7 @@
   ],
   "dependencies": {
     "angular-material": "master",
-    "material-design-icons": "~2.1.1"
+    "material-design-icons": "~2.1.1",
+    "angular": "1.5.0-rc.0"
   }
 }

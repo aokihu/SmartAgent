@@ -30,9 +30,9 @@ function SAScheduleService($rootScope, SAMQTT){
       //
       // 格式化时间格式
       //
-      let h = item.h < 10 ? item.h + "0" : item.h
-      let m = item.m < 10 ? item.m + "0" : item.m
-      let s = item.s < 10 ? item.s + "0" : item.s
+      let h = item.h < 10 ? "0"+item.h : item.h
+      let m = item.m < 10 ? "0"+item.m : item.m
+      let s = item.s < 10 ? "0"+item.s : item.s
       item.alarm = `${h}:${m}:${s}`;
 
       // 更改星期天的显示
@@ -53,13 +53,15 @@ function SAScheduleService($rootScope, SAMQTT){
     $rootScope.$broadcast('pub/local/timer/schedule', this.schedule);
   })
 
+  // 添加时刻表任务
   this.add = (item) => {
     SAMQTT.send('/local/timer/set/add', JSON.stringify(item));
   }
 
   // 删除时刻表
+  // id:String 时刻表任务ID
   this.remove = (id) => {
-    SAMQTT.send('/local/timer/set/remove', JSON.stringify({'id':id}));
+    SAMQTT.send('/local/timer/set/remove', JSON.stringify({id:id}));
   }
 
   // 更新时刻表

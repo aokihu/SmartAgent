@@ -51,7 +51,6 @@ function SAMQTTService($rootScope){
        * 处理接受数据
        * @param  {[type]} 'message' [description]
        * @param  {[type]} (topic,   msg           [description]
-       * @return {[type]}           [description]
        */
       client.on('message', (topic, msg)=>{
         let _topic = topic.toString();
@@ -63,6 +62,8 @@ function SAMQTTService($rootScope){
 
       // 设备连接事件
       client.on('connect', () => {
+
+        console.log(client);
         $rootScope.$broadcast('deviceOnline');
 
         readyActions.forEach( (action) => {
@@ -115,9 +116,8 @@ function SAMQTTService($rootScope){
 
   /**
    * 发送指令
-   * @param  {string} action 指令名称
+   * @param  {string} action       指令名称
    * @param  {object|array} data   附加数据
-   * @return {[type]}        [description]
    */
   this.send = (action,data)=>{
 

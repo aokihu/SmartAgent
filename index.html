@@ -25,6 +25,7 @@
     <script src="app/ctrls/sidemenu.js"></script>
     <script src="app/ctrls/music.js"></script>
     <script src="app/ctrls/main.js"></script>
+    <script src="app/component/systeminfo.js"></script>
 	</head>
 	<body ng-cloak layout="column" layout-fill ng-app="app" ng-controller="mainCtrl">
     <!-- Container #1 (see wireframe) -->
@@ -42,7 +43,7 @@
         <md-sidenav md-component-id="left" flex md-is-locked-open="true" layout="column" class="md-whiteframe-z2">
           <md-list ng-controller="SASideMenu" flex ng-cloak>
             <md-list-item ng-repeat="menu in menus">
-              <md-button ng-href="#/{{menu.state}}" ng-class="{'md-primary md-raised':isCurrent($index)}" md-no-ink flex>
+              <md-button ng-href="#/{{menu.state}}" ng-class="{'md-primary md-raised':isCurrent($index)}" flex>
                 <md-icon>{{menu.icon}}</md-icon>
                 {{menu.title}}
               </md-button>

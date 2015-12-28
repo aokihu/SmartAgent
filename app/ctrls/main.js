@@ -60,7 +60,6 @@ var app = angular.module('app', ['ngMaterial','ui.router'])
 .controller('SASystemCtrl', SASystemCtrl)
 .controller('SAScheduleCtrl',SAScheduleCtrl)
 .controller('mainCtrl', ($scope, $mdDialog ,$mdToast)=>{
-
   var errToast = null;
   //
   // 主控制器

@@ -5,6 +5,7 @@
 //
 function SAScheduleCtrl($scope, SASchedule ,$mdDialog){
 
+
   $scope.schedule = []; // 定时表
 
   const evtGetListPub = SASchedule.getList();
@@ -49,6 +50,8 @@ function SAScheduleCtrl($scope, SASchedule ,$mdDialog){
 //
 function SAScheduleEditCtrl($scope,$mdDialog, SASchedule, $mdBottomSheet, index){
 
+  $scope.title = "编辑定时任务";
+
   //
   // 编辑的时刻项目
   //
@@ -70,6 +73,33 @@ function SAScheduleEditCtrl($scope,$mdDialog, SASchedule, $mdBottomSheet, index)
   $scope.answer = function(answer) {
     $mdDialog.hide(answer);
   };
+
+  /**
+   * 删除定时记录
+   * @return {[type]} [description]
+   */
+  $scope.remove = function(){
+    SASchedule.remove($scope.localSchd.id);
+    $scope.hide();
+  }
+
+  /**
+   * 保存定时记录
+   */
+  $scope.update = function(){
+    let task = {
+      id:$scope.localSchd.id,
+      dw:$scope.localSchd.dw,
+      h:$scope.localSchd.h,
+      m:$scope.localSchd.m,
+      s:$scope.localSchd.s,
+      action:$scope.localSchd.action,
+      data:$scope.localSchd.data
+    }
+
+    SASchedule.update(task);
+    $scope.hide();
+  }
 
   /**
    * 选择动作
@@ -99,6 +129,6 @@ function SAScheduleEditCtrl($scope,$mdDialog, SASchedule, $mdBottomSheet, index)
       $scope.localSchd.dw.push(_d);
     }
   }
-  
+
 
 }
