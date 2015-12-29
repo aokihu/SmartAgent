@@ -19,13 +19,14 @@
     <script src="app/services/discover.js"></script>
     <script src="app/services/music.js"></script>
     <script src="app/services/schedule.js"></script>
-    <script src="app/ctrls/device.js"></script>
-    <script src="app/ctrls/timer.js"></script>
-    <script src="app/ctrls/system.js"></script>
-    <script src="app/ctrls/sidemenu.js"></script>
-    <script src="app/ctrls/music.js"></script>
     <script src="app/ctrls/main.js"></script>
     <script src="app/component/systeminfo.js"></script>
+    <script src="app/component/sidenav.list.js"></script>
+    <script src="app/component/discover.js"></script>
+    <script src="app/component/schedule.list.js"></script>
+    <script src="app/component/music.js"></script>
+    <script src="app/component/music.list.js"></script>
+    <script src="app/component/music.player.js"></script>
 	</head>
 	<body ng-cloak layout="column" layout-fill ng-app="app" ng-controller="mainCtrl">
     <!-- Container #1 (see wireframe) -->
@@ -41,28 +42,10 @@
       <div layout="column">
         <!-- Container #3 -->
         <md-sidenav md-component-id="left" flex md-is-locked-open="true" layout="column" class="md-whiteframe-z2">
-          <md-list ng-controller="SASideMenu" flex ng-cloak>
-            <md-list-item ng-repeat="menu in menus">
-              <md-button ng-href="#/{{menu.state}}" ng-class="{'md-primary md-raised':isCurrent($index)}" flex>
-                <md-icon>{{menu.icon}}</md-icon>
-                {{menu.title}}
-              </md-button>
-            </md-list-item>
-          </md-list>
-
-        <!-- 设备连接 -->
-        <div style="border-top:1px solid rgba(0,0,0,0.15)" layout ng-controller="SADeviceManager">
-          <md-button flex ng-if="!connected" ng-click="openDeviceDiscover($event)">
-              <md-icon>cast</md-icon>
-              搜索设备
-          </md-button>
-
-          <md-button flex ng-if="connected" ng-click="openDeviceDiscover($event)">
-              <md-icon>cast_connected</md-icon>
-              连接:{{device.model}}
-          </md-button>
-        </div>
-        <!-- @end 设备连接 -->
+          <sidenav-list flex></sidenav-list>
+          <!-- 设备连接 -->
+          <discover></discover>
+          <!-- @end 设备连接 -->
         </md-sidenav>
       </div>
 
@@ -71,7 +54,6 @@
         <md-content flex id="content" ui-view>
 
         </md-content>
-
     </div>
 	</body>
 

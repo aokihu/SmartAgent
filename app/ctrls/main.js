@@ -1,3 +1,4 @@
+
 var app = angular.module('app', ['ngMaterial','ui.router'])
 .config(($mdThemingProvider, $stateProvider, $urlRouterProvider)=>{
   $mdThemingProvider.theme('default')
@@ -15,12 +16,10 @@ var app = angular.module('app', ['ngMaterial','ui.router'])
     url:"/music",
     views:{
       "":{
-        templateUrl:'app/views/music.html',
-        controller:'SAMusicManagerCtrl'
+        template:'<music></music>',
       },
       "topmenu":{
-        templateUrl:'app/views/music.topmenu.html',
-        controller:'SAMusicPlayerCtrl'
+        template:'<music-player></music-player>',
       }
     }
   })
@@ -28,8 +27,8 @@ var app = angular.module('app', ['ngMaterial','ui.router'])
     url:"/system",
     views:{
       "":{
-        templateUrl:'app/views/system.html',
-        controller:'SASystemCtrl'
+        template:'<system-info></system-info>',
+        // controller:'SASystemCtrl'
       },
       "topmenu":{
         templateUrl:'app/views/system.topmenu.html'
@@ -40,8 +39,8 @@ var app = angular.module('app', ['ngMaterial','ui.router'])
     url:'/timer',
     views:{
       "":{
-        templateUrl:"app/views/timer.html",
-        controller:'SAScheduleCtrl'
+        template:"<schedule-list></schedule-list>"
+        // controller:'SAScheduleCtrl'
       },
       "topmenu":{
         templateUrl:"app/views/timer.topmenu.html"
@@ -53,12 +52,6 @@ var app = angular.module('app', ['ngMaterial','ui.router'])
 .service('SAMQTT',SAMQTTService)
 .service('SAMusic',SAMusicService)
 .service('SASchedule',SAScheduleService)
-.controller('SASideMenu', SideMenuCtrl)
-.controller('SADeviceManager',DeviceManager)
-.controller('SAMusicManagerCtrl', MusicManager)
-.controller('SAMusicPlayerCtrl', MusicPlayer)
-.controller('SASystemCtrl', SASystemCtrl)
-.controller('SAScheduleCtrl',SAScheduleCtrl)
 .controller('mainCtrl', ($scope, $mdDialog ,$mdToast)=>{
   var errToast = null;
   //

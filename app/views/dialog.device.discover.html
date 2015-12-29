@@ -23,8 +23,11 @@
         <!-- 设备列表界面 -->
         <div ng-show="devices">
           <md-list>
-            <md-list-item ng-repeat="device in devices" ng-click="choose($index)">
-              <h3><md-icon>computer</md-icon> {{device.model}}</h3>
+            <md-list-item ng-repeat="device in devices" ng-click="choose($index)" class="md-2-line">
+              <div class="md-list-item-text">
+                <h3><md-icon>computer</md-icon> {{device.model}}</h3>
+                <p>IP:{{device.ip}}</p>
+              </div>
             </md-list-item>
           </md-list>
         </div>

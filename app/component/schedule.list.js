@@ -1,48 +1,68 @@
 'use strict';
 
-//
-// 定时任务控制器
-//
-function SAScheduleCtrl($scope, SASchedule ,$mdDialog){
+angular.module('app')
+.component('scheduleList',{
+
+  template:`
+  <md-subheader>{{schedule.length}}条任务</md-subheader>
+  <md-list>
+    <md-list-item ng-cloak md-no-ink ng-repeat="item in schedule" layout ng-click="edit($event,$index)">
+      <h3 style="display:block;width:120px">
+        <md-icon style="margin-right:6px">alarm</md-icon>{{item.alarm}}
+      </h3>
+
+      <div class="md-list-item-text" flex>
+        <md-chips ng-model="item.displayDw" readonly="true" class="schedule-list">
+          <md-chip-template>
+            <span>星期 {{$chip}}</span>
+          </md-chip-template>
+        </md-chips>
+      </div>
+
+      <md-icon flex="5" style="font-size:32px;">{{item.icon}}</md-icon>
+      <md-divider></md-divider>
+    </md-list-item>
+  </md-list>
+  `,
+  controller: ($scope, SASchedule ,$mdDialog) => {
+    $scope.schedule = []; // 定时表
+
+    const evtGetListPub = SASchedule.getList();
+
+    // 显示定时列表
+    $scope.$on(evtGetListPub, (evt, data) => {
+
+      $scope.schedule = data
+
+      $scope.$apply();
+
+    });
+
+    //
+    // 编辑定时
+    //
+    $scope.edit = (evt,index) =>{
+
+      $mdDialog.show({
+         controller: SAScheduleEditCtrl,
+         templateUrl: 'app/views/timer.edit.html',
+         parent: angular.element(document.body),
+         targetEvent: evt,
+         clickOutsideToClose:true,
+         escapeToClose:true,
+         locals:{index:index}
+       })
+       .then(function(answer) {
+         $scope.status = 'You said the information was "' + answer + '".';
+       }, function() {
+         $scope.status = 'You cancelled the dialog.';
+       });
 
 
-  $scope.schedule = []; // 定时表
-
-  const evtGetListPub = SASchedule.getList();
-
-  // 显示定时列表
-  $scope.$on(evtGetListPub, (evt, data) => {
-
-    $scope.schedule = data
-
-    $scope.$apply();
-
-  });
-
-  //
-  // 编辑定时
-  //
-  $scope.edit = (evt,index) =>{
-
-    $mdDialog.show({
-       controller: SAScheduleEditCtrl,
-       templateUrl: 'app/views/timer.edit.html',
-       parent: angular.element(document.body),
-       targetEvent: evt,
-       clickOutsideToClose:true,
-       escapeToClose:true,
-       locals:{index:index}
-     })
-     .then(function(answer) {
-       $scope.status = 'You said the information was "' + answer + '".';
-     }, function() {
-       $scope.status = 'You cancelled the dialog.';
-     });
-
-
+    }
   }
 
-}
+});
 
 
 //
@@ -129,6 +149,5 @@ function SAScheduleEditCtrl($scope,$mdDialog, SASchedule, $mdBottomSheet, index)
       $scope.localSchd.dw.push(_d);
     }
   }
-
 
 }
